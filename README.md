@@ -4,3 +4,8 @@ WAD project team 7
 To Use:
 1. Clone the repository using git clone 
 2. CD into the project directory and from the terminal run: pip install -r requirements.txt
+
+Branching:
+1. `git checkout -b feature-yourname` will create a new branch, we can all create a branch and use it through the whole project. Merge changes after you've done a task.
+2. `git push -u origin feature-yourname` sets up tracking between your branch and the remote repository here on GitHub
+3. `git fetch origin` to get any changes without affecting your working directory (do this before merging) 
