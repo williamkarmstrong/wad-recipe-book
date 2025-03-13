@@ -1,13 +1,33 @@
 <!DOCTYPE html>
+
+{% load staticfiles %}
 <html>
 <head>
     <title>Snack Overflow</title>
 </head>
 
 <body>
-    <h1>Welcome to...</h1>
-    <div>
-        <h3>Snack Overflow</h3><br />
-    </div>
+<h1>Snack Overflow</h1>
+<div>
+    <ul>
+        <li>Category Name</li>
+        <li>Category Name</li>
+        <li>Category Name</li>
+        <li>Category Name</li>
+        <li>Category Name</li>
+    </ul>
+</div>
+<div>
+    <img src="{% static 'images/profileicon.png' %}"
+         alt="Profile Icon" width="75" height="75"/>
+    <h5>Log in/Sign up</h5>
+    <img src="{% static 'images/addrecipeicon.png' %}"
+         alt="Add Recipe Icon" width="75" height="75"/>
+    <h5>add Recipes</h5>
+    <img src="{% static 'images/recipeicon.png' %}"
+         alt="My recipes Icon" width="75" height="75"/>
+    <h5>My Recipes</h5>
+</div>
+
 </body>
 </html>
