@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = 'recipes.CustomUser'
+
 ROOT_URLCONF = 'wad_recipe_book.urls'
 
 TEMPLATES = [
