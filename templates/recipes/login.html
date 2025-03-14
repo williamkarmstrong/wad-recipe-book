@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+<head>
+    <title>Snack Overflow</title>
+</head>
+
+<body>
+<h5>Home</h5>
+<h1>Log in</h1>
+<img src="{% static 'images/profileicon.png' %}"
+     alt="Profile Icon" width="75" height="75"/>
+<div>
+    <form action="/action_page.php">
+        <label for="uname">Username:</label>
+        <input type="text" id="uname" name="uname"><br><br>
+        <label for="pword">Password:</label>
+        <input type="text" id="pword" name="pword"><br><br>
+        <input type="submit" value="Confirm">
+    </form>
+</div>
+<h5>Sign Up?</h5>
+
+
+</body>
+</html>
