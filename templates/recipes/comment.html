@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+<head>
+    <title>Snack Overflow</title>
+</head>
+
+<body>
+<h5>Home</h5>
+<!-- TODO should change depending on name of recipe -->
+<h1>Recipe Name</h1>
+<!-- TODO load image of recipe -->
+<img src="{% static '' %}"
+     alt="recipe Icon" width="75" height="75"/><br><br>
+
+<div>
+    <form>
+        <label for="comment">Leave a comment:</label>
+        <input type="text" id="comment" name="comment"><br><br>
+        <input type="submit" value="Confirm">
+    </form>
+</div>
+
+
+</body>
+</html>
