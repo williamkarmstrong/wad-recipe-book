@@ -8,7 +8,8 @@ To Use:
 Branching:
 1. `git checkout -b feature-yourname` will create a new branch, we can all create a branch and use it through the whole project. Merge changes after you've done a task.
 2. `git push -u origin feature-yourname` sets up tracking between your branch and the remote repository here on GitHub
-3. `git fetch origin` to get any changes without affecting your working directory (do this before merging) 
+3. `git fetch origin` to get any changes without affecting your working directory (do this before merging)
+4. `git merge origin/main` if there are no conflicts git will merge main into your branch
 
 Pushing changes:
 1. `git add .` add all changes to staging
