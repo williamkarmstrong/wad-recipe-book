@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+<head>
+    <title>Snack Overflow</title>
+</head>
+
+<body>
+<h5>Home</h5>
+<!-- TODO should change depending on name of recipe -->
+<h1>Recipe Name</h1>
+<h3>Edit Recipe</h3>
+<!-- TODO allow functionality for changing image -->
+<img src="{% static '' %}"
+     alt="edit recipe Icon" width="75" height="75"/><br><br>
+<div>
+    <form action="/action_page.php">
+        <label for="desc">Edit Description:</label>
+        <input type="text" id="desc" name="fname"><br><br>
+        <label for="title">Edit Title:</label>
+        <input type="text" id="title" name="lname"><br><br>
+        <label for="ingredient">Edit Ingredients:</label>
+        <input type="text" id="ingredient" name="lname"><br><br>
+        <input type="submit" value="Confirm">
+    </form>
+</div>
+
+
+</body>
+</html>
