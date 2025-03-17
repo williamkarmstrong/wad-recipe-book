@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -23,6 +25,14 @@ class Recipe(models.Model):
     prep_time = models.IntegerField(help_text="Preparation time in minutes")
     difficulty = models.CharField(max_length=20, choices=[("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard")])
     created_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    picture = models.ImageField(upload_to="recipe_images/", blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    def average_rating(self):
+        return self.reviews.aggregate(avg_rating=Avg("rating"))["avg_rating"] or 0
+    
+    def __str__(self):
+        return self.title
+
 
 class SavedRecipe(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="saved_recipes")
