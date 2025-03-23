@@ -1,8 +1,11 @@
-from recipes.forms import UserForm, UserProfileForm
+from recipes.forms import CommentForm, RecipeForm, UserForm, UserProfileForm
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from recipes.models import Category, Recipe
 
 # Create your views here.
 
@@ -42,9 +45,12 @@ def register(request):
         
     return render(request, 'signup.html', context = {'user_form' : user_form, 'profile_form' : profile_form, 'registered' : registered})
 
+def category_view(request, category_name_slug):
+    context_dict = {}
+
     try:
         category = Category.objects.get(slug=category_name_slug)
-        pages = Page.objects.filter(category=category)
+        pages = Recipe.objects.filter(category=category)
         context_dict['pages'] = pages
         context_dict['category'] = category
     except Category.DoesNotExist:
@@ -55,7 +61,7 @@ def register(request):
 
 
 def recipe_detail_view(request, category_slug, recipe_slug):
-    recipe = get_object_or_404(Recipe, slug=recipe_slug)
+    recipe = Recipe.objects.get(title=recipe_slug)
     return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
 
   
@@ -64,7 +70,7 @@ def add_recipe_view(request):
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
-            recipe.slug = slugify(recipe.title)
+            recipe.title = recipe.title
             recipe.save()
             return redirect('/')
     else:
@@ -73,7 +79,7 @@ def add_recipe_view(request):
 
   
 def edit_recipe_view(request, category_slug, recipe_slug):
-    recipe = get_object_or_404(Recipe, slug=recipe_slug)
+    recipe = Recipe.objects.get(title=recipe_slug)
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
@@ -85,7 +91,7 @@ def edit_recipe_view(request, category_slug, recipe_slug):
 
   
 def delete_recipe_view(request, category_slug, recipe_slug):
-    recipe = get_object_or_404(Recipe, slug=recipe_slug)
+    recipe = Recipe.objects.get(title=recipe_slug)
     if request.method == 'POST':
         recipe.delete()
         return redirect('/')
@@ -93,7 +99,7 @@ def delete_recipe_view(request, category_slug, recipe_slug):
 
   
 def comment_view(request, category_slug, recipe_slug):
-    recipe = get_object_or_404(Recipe, slug=recipe_slug)
+    recipe = Recipe.objects.get(title=recipe_slug)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -103,13 +109,16 @@ def comment_view(request, category_slug, recipe_slug):
     return redirect(request.META.get('HTTP_REFERER', '/'))
   
   
-def rate_view(request, category_slug, recipe_slug):
-    recipe = get_object_or_404(Recipe, slug=recipe_slug)
+def rate_recipe_view(request, recipe_slug):
+    recipe = Recipe.objects.get(title=recipe_slug)
     if request.method == 'POST':
         rating = request.POST.get('rating')
         if rating:
             recipe.ratings.add(rating)
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def save_recipe_view(request, recipe_slug):
+    pass
 
 
 def register(request):

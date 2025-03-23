@@ -15,7 +15,7 @@
 <img src="{% static '' %}"
      alt="edit recipe Icon" width="75" height="75"/><br><br>
 <div>
-    <form action="/action_page.php">
+    <form id="edit_form" method="post" action="{% url 'recipes:edit_recipe' %}">
         <label for="desc">Edit Description:</label>
         <input type="text" id="desc" name="fname"><br><br>
         <label for="title">Edit Title:</label>

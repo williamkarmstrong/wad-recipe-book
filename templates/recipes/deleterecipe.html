@@ -16,7 +16,7 @@
 
 <h3>Delete recipe from profile?</h3>
 <div>
-    <form>
+    <form id="delete_form" method="post" action="{% url 'recipes:delete_recipe' %}">
         <input type="checkbox" id="yes" name="yesbutton" value="Yes">
         <label for="yes"> Yes</label><br>
         <input type="checkbox" id="no" name="nobutton" value="No">

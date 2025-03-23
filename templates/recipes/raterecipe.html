@@ -16,7 +16,7 @@
 
 <h3>Rate Recipe</h3>
 <div>
-    <form action="/action_page.php">
+    <form id="rating_form" method="post" action="{% url 'recipes:rate' %}">
         <input type="radio" id="1" name="1" value="1">
         <label for="1">1</label><br>
         <input type="radio" id="2" name="2" value="2">
