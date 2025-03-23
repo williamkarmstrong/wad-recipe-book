@@ -16,7 +16,7 @@
 
 <h3>Save Recipe to profile?</h3>
 <div>
-    <form>
+    <form id="save_form" method="post" action="{% url 'recipes:save' %}">
         <input type="checkbox" id="yes" name="yesbutton" value="Yes">
         <label for="yes"> Yes</label><br>
         <input type="checkbox" id="no" name="nobutton" value="No">
