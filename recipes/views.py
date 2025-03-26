@@ -14,7 +14,7 @@ def index(request):
     context_dict = {}
 
     try:
-        categories = Category.objects.get()
+        categories = Category.objects.all()
         context_dict['categories'] = categories
     except Category.DoesNotExist:
         context_dict['categories'] = None
@@ -37,8 +37,8 @@ def category_view(request, category_name_slug):
     return render(request, 'recipes/category.html', context=context_dict)
 
 
-def recipe_detail_view(request, category_slug, recipe_slug):
-    recipe = Recipe.objects.get(title=recipe_slug)
+def recipe_detail_view(request, category_name_slug, recipe_slug):
+    recipe = Recipe.objects.get(category=category_name_slug, title=recipe_slug)
     return render(request, 'recipes/recipe.html', {'recipe': recipe})
 
   

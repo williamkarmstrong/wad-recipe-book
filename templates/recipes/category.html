@@ -12,23 +12,24 @@
 <h1>Category Name</h1>
 
 <div>
-    <ul>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-    </ul>
+    {% if category %}
+        <h1>{{ category.name }}</h1>
+        {% if pages %}
+        <ul>
+            {% for page in pages %}
+            <li><a href="{% url 'recipes:recipe_detail' category.slug page.slug %}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>No pages currently in category.</strong>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'recipes:add_recipe' category.slug page%}">Add Page</a> <br />
+        {% endif %}
+    {% else %}
+        The specified category does not exist.
+    {% endif %}
 </div>
 
 <h3>Other Categories</h3>

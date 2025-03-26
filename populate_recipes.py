@@ -6,7 +6,17 @@ import django
 django.setup()
 
 from recipes.models import Category, Recipe
+from django.contrib.auth.models import User
 
+def create_users():
+    users = []
+    for i in range(5):  # Create 5 users
+        user, created = User.objects.get_or_create(username=f"user{i}")
+        if created:
+            user.set_password("password123")  # Set a default password
+            user.save()
+        users.append(user)
+    return users
 
 def populate():
     # First, we will create lists of dictionaries containing the pages
@@ -15,10 +25,13 @@ def populate():
     # This might seem a little bit confusing, but it allows us to iterate
     # through each data structure, and add the data to our models.
 
+    users = create_users()
+
     italian = [
     # Italian Recipes
     {
         "title": "Margherita Pizza",
+        "author": users[0],
         "difficulty": "Medium",
         "description": "A classic Neapolitan pizza with tomato, mozzarella, and basil.",
         "ingredients": ["Pizza dough", "Tomato sauce", "Mozzarella", "Basil", "Olive oil", "Salt"],
@@ -26,6 +39,7 @@ def populate():
     },
     {
         "title": "Lasagna",
+        "author": users[1],
         "difficulty": "Hard",
         "description": "A rich layered pasta dish with meat, béchamel sauce, and cheese.",
         "ingredients": ["Lasagna noodles", "Ground beef", "Tomato sauce", "Ricotta", "Mozzarella", "Parmesan", "Béchamel sauce"],
@@ -33,6 +47,7 @@ def populate():
     },
     {
         "title": "Pasta Pesto",
+        "author": users[2],
         "difficulty": "Easy",
         "description": "A fresh and flavorful pasta dish with basil pesto.",
         "ingredients": ["Pasta", "Basil", "Pine nuts", "Parmesan", "Garlic", "Olive oil"],
@@ -42,6 +57,7 @@ def populate():
     indian = [
     {
         "title": "Butter Chicken",
+        "author": users[3],
         "difficulty": "Medium",
         "description": "A creamy, spiced chicken curry with butter and tomatoes.",
         "ingredients": ["Chicken", "Tomato puree", "Cream", "Butter", "Ginger", "Garlic", "Garam masala"],
@@ -49,6 +65,7 @@ def populate():
     },
     {
         "title": "Chana Masala",
+        "author": users[4],
         "difficulty": "Easy",
         "description": "A spiced chickpea curry that is rich in flavor.",
         "ingredients": ["Chickpeas", "Onion", "Tomato", "Garlic", "Ginger", "Cumin", "Coriander"],
@@ -56,6 +73,7 @@ def populate():
     },
     {
         "title": "Biryani",
+        "author": users[0],
         "difficulty": "Hard",
         "description": "A fragrant rice dish with spiced meat and saffron.",
         "ingredients": ["Basmati rice", "Chicken", "Yogurt", "Onions", "Spices", "Saffron"],
@@ -66,6 +84,7 @@ def populate():
     chinese = [
     {
         "title": "Kung Pao Chicken",
+        "author": users[1],
         "difficulty": "Medium",
         "description": "A spicy stir-fried chicken dish with peanuts and vegetables.",
         "ingredients": ["Chicken", "Bell peppers", "Peanuts", "Soy sauce", "Garlic", "Chili flakes"],
@@ -73,6 +92,7 @@ def populate():
     },
     {
         "title": "Fried Rice",
+        "author": users[2],
         "difficulty": "Easy",
         "description": "A quick and flavorful rice dish with vegetables and egg.",
         "ingredients": ["Rice", "Eggs", "Carrots", "Peas", "Soy sauce", "Garlic", "Oil"],
@@ -80,6 +100,7 @@ def populate():
     },
     {
         "title": "Peking Duck",
+        "author": users[3],
         "difficulty": "Hard",
         "description": "A crispy roasted duck served with pancakes and hoisin sauce.",
         "ingredients": ["Duck", "Hoisin sauce", "Cucumber", "Green onions", "Pancakes"],
@@ -98,15 +119,16 @@ def populate():
     for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data['pages']:
-            add_recipe(c, p['title'], p['difficulty'], p['description'], p['ingredients'], p['instructions'])
+            add_recipe(c, p['title'], p['author'], p['difficulty'], p['description'], p['ingredients'], p['instructions'])
 
     # Print out the categories we have added.
     for c in Category.objects.all():
         for p in Recipe.objects.filter(category=c):
             print(f'- {c}: {p}')
 
-def add_recipe(cat, title, difficulty, description, ingredients, instructions):
-    p = Recipe.objects.get_or_create(category=cat, title=title)[0]
+def add_recipe(cat, title, author, difficulty, description, ingredients, instructions):
+    p = Recipe.objects.get_or_create(author=author, category=cat)[0]
+    p.title=title
     p.difficulty=difficulty
     p.description=description
     p.ingredients=ingredients

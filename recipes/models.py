@@ -33,7 +33,7 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], null=True, blank=True)
     slug = models.SlugField()
 
     def average_rating(self):
