@@ -6,15 +6,37 @@
     <title>Recipes</title>
 </head>
 
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'recipes:login' %}">Login</a></li>
+            <li><a href="{% url 'recipes:add_recipe' %}">Add Recipe</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'recipes:save' %}">Saved Recipes</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
 <body>
 <h1>Snack Overflow</h1>
 <div>
     <ul>
-        <li>Category Name</li>
-        <li>Category Name</li>
-        <li>Category Name</li>
-        <li>Category Name</li>
-        <li>Category Name</li>
+        {% if categories %}
+            {% for c in categories %}
+                {% if c == current_category %}
+                <li>
+                <strong>
+                    <a href="{% url 'rango:show_category' c.slug %}">{{ c.name }}</a>
+                </strong>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'rango:show_category' c.slug %}">{{ c.name }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </ul>
 </div>
 <div>

@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField()
@@ -19,15 +20,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Recipe(models.Model):
+    DIFFICULTY_CHOICES = [("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard")]
+
     title = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
-    picture = models.ImageField(upload_to='recipe_images', blank=True)
+    image = models.ImageField(upload_to='recipe_images', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
-    prep_time = models.IntegerField(help_text="Preparation time in minutes")
-    difficulty = models.CharField(max_length=20, choices=[("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard")])
+    difficulty = models.CharField(max_length=20, choices=DIFFICULTY_CHOICES)
     ingredients = models.TextField()
+    instructions = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     slug = models.SlugField()
@@ -39,8 +43,8 @@ class Recipe(models.Model):
         return 0
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+        self.slug = slugify(self.title)
+        super(Recipe, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -83,12 +87,11 @@ class Comment(models.Model):
 
 
 class UserProfile(models.Model):
-    # This line is required. Links UserProfile to a User model instance.
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    # The additional attributes we wish to include.
+    
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+     
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-
+    
     def __str__(self):
         return self.user.username
