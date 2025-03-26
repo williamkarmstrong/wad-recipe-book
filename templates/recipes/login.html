@@ -13,11 +13,12 @@
      alt="Profile Icon" width="75" height="75"/>
 <div>
     <form id="login_form" method="post" action="{% url 'recipes:login' %}">
-        <label for="uname">Username:</label>
-        <input type="text" id="uname" name="uname"><br><br>
-        <label for="pword">Password:</label>
-        <input type="text" id="pword" name="pword"><br><br>
-        <input type="submit" value="Confirm">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="30" />
+        <br />
+        Password: <input type="password" name="password" value="" size="30" />
+        <br />
+        <input type="submit" value="submit" />
     </form>
 </div>
 <h5>Sign Up?</h5>

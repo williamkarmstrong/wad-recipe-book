@@ -16,13 +16,9 @@
      alt="edit recipe Icon" width="75" height="75"/><br><br>
 <div>
     <form id="recipe_form" method="post" action="{% url 'recipes:add_recipe' %}">
-        <label for="desc">Add Description:</label>
-        <input type="text" id="desc" name="fname"><br><br>
-        <label for="title">Add Title:</label>
-        <input type="text" id="title" name="lname"><br><br>
-        <label for="ingredient">Add Ingredients:</label>
-        <input type="text" id="ingredient" name="lname"><br><br>
-        <input type="submit" value="Confirm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
     </form>
 </div>
 
