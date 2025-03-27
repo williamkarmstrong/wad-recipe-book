@@ -1,55 +1,40 @@
-<!DOCTYPE html>
-
+{% extends 'recipes/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>Recipes</title>
-</head>
 
-<header>
-    <nav>
+{% block title_block %}
+    Home
+{% endblock %}
+
+{% block body_block %}
+    <div>
         <ul>
-            <li><a href="{% url 'recipes:login' %}">Login</a></li>
-            <li><a href="{% url 'recipes:add_recipe' %}">Add Recipe</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'recipes:save' %}">Saved Recipes</a></li>
+            {% if categories %}
+                {% for c in categories %}
+                    {% if c == current_category %}
+                    <li>
+                    <strong>
+                        <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
+                    </strong>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
         </ul>
-    </nav>
-</header>
+    </div>
 
-<body>
-<h1>Snack Overflow</h1>
-<div>
-    <ul>
-        {% if categories %}
-            {% for c in categories %}
-                {% if c == current_category %}
-                <li>
-                <strong>
-                    <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
-                </strong>
-                </li>
-                {% else %}
-                <li>
-                    <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
-                </li>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </ul>
-</div>
-<div>
-    <img src="{% static 'images/profileicon.png' %}"
-         alt="Profile Icon" width="75" height="75"/>
-    <h5>Log in/Sign up</h5>
-    <img src="{% static 'images/addrecipeicon.png' %}"
-         alt="Add Recipe Icon" width="75" height="75"/>
-    <h5>add Recipes</h5>
-    <img src="{% static 'images/recipeicon.png' %}"
-         alt="My recipes Icon" width="75" height="75"/>
-    <h5>My Recipes</h5>
-</div>
-
-</body>
-</html>
+    <div>
+        <img src="{% static 'images/profileicon.png' %}"
+            alt="Profile Icon" width="75" height="75"/>
+        <h5>Log in/Sign up</h5>
+        <img src="{% static 'images/addrecipeicon.png' %}"
+            alt="Add Recipe Icon" width="75" height="75"/>
+        <h5>add Recipes</h5>
+        <img src="{% static 'images/recipeicon.png' %}"
+            alt="My recipes Icon" width="75" height="75"/>
+        <h5>My Recipes</h5>
+    </div>
+{% endblock %}
