@@ -3,4 +3,4 @@
 __pycache__/
 db.sqlite3
 *.key
-thumbs.db
+thumbs.db__pycache__/
