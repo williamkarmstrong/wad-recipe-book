@@ -1,5 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
 from django.db.models import Q
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
@@ -45,16 +44,3 @@ def search_recipes(request):
     query = request.GET.get("q", "")
     recipes = Recipe.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
     return JsonResponse(list(recipes.values()), safe=False)
-=======
-from django.contrib.auth.models import User
-
-class UserProfile(models.Model):
-    
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-     
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-    
-    def __str__(self):
-        return self.user.username
->>>>>>> 0ca6aef9f867ef252753566db911bd1e3eaaa691
