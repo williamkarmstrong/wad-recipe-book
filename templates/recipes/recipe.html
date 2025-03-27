@@ -19,24 +19,24 @@
         <h3> Rating: {{ recipe.average_rating }} / 5.0</h3>
 
         {% if user.is_authenticated %}
+            <span class="like-count">{{ recipe.total_likes|default:"0" }}</span>
+            
+            <button class="save-recipe" data-recipe-id="{{ recipe.id }}">Save to My Recipes</button>
+            
             <form method="post" action="{% url 'recipes:rate' recipe.id %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Rate</button>
             </form>
-
-            <form method="post" action="{% url 'recipes:save' recipe.id %}">
-                {% csrf_token %}
-                <button type="submit">Save to My Recipes</button>
-            </form>
-
-            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Edit Recipe</a>
             
-        {% else %}
-            <p><a href="{% url 'recipes:login' %}">Log in</a> to rate and save recipes.</p>
+            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Edit Recipe</a>
         {% endif %}
+
 
     {% else %}
         The specified recipe does not exist.
     {% endif %}
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

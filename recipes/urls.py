@@ -1,5 +1,6 @@
 from django.urls import path
 from recipes import views
+from .views import my_recipes_view
 
 app_name = 'recipes'
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
+    path('myrecipes/', my_recipes_view, name='myrecipes'),
 ]
