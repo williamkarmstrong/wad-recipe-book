@@ -94,7 +94,7 @@ def rate_recipe_view(request, recipe_id):
     rating_instance = Rating.objects.filter(user=request.user, recipe=recipe).first()
 
     if request.method == "POST":
-        form = RatingForm(request.POST, instance=rating_instance)  # Use existing rating if it exists
+        form = RatingForm(request.POST, instance=rating_instance)  
         if form.is_valid():
             rating = form.save(commit=False)
             rating.user = request.user
