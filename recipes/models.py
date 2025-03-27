@@ -33,13 +33,12 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)], null=True, blank=True)
     slug = models.SlugField()
 
     def average_rating(self):
         ratings = self.ratings.all()
         if ratings.exists():
-            return round(sum(r.value for r in ratings) / ratings.count(), 1)
+            return round(sum(r.rating for r in ratings) / ratings.count(), 1)
         return 0
     
     def save(self, *args, **kwargs):
@@ -65,7 +64,7 @@ class SavedRecipe(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ratings')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ratings')
-    value = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # 1 to 5 stars
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # 1 to 5 stars
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
