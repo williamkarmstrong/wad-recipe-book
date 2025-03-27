@@ -11,6 +11,9 @@ from datetime import datetime
 # Create your views here.
 
 def index(request):
+    return render(request, 'recipes/index.html', context=get_categories())
+
+def get_categories():
     context_dict = {}
 
     try:
@@ -18,9 +21,8 @@ def index(request):
         context_dict['categories'] = categories
     except Category.DoesNotExist:
         context_dict['categories'] = None
-        
-    return render(request, 'recipes/index.html', context=context_dict)
 
+    return context_dict
 
 def category_view(request, category_name_slug):
     context_dict = {}
@@ -28,17 +30,17 @@ def category_view(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Recipe.objects.filter(category=category)
-        context_dict['pages'] = pages
+        context_dict['recipes'] = pages
         context_dict['category'] = category
     except Category.DoesNotExist:
         context_dict['category'] = None
-        context_dict['pages'] = None
+        context_dict['recipes'] = None
 
     return render(request, 'recipes/category.html', context=context_dict)
 
 
-def recipe_detail_view(request, category_name_slug, recipe_slug):
-    recipe = Recipe.objects.get(category=category_name_slug, title=recipe_slug)
+def recipe_detail_view(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
     return render(request, 'recipes/recipe.html', {'recipe': recipe})
 
   
@@ -54,8 +56,8 @@ def add_recipe_view(request):
     return render(request, 'recipes/addrecipe.html', {'form': form})
 
   
-def edit_recipe_view(request, category_slug, recipe_slug):
-    recipe = Recipe.objects.get(title=recipe_slug)
+def edit_recipe_view(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
@@ -66,15 +68,15 @@ def edit_recipe_view(request, category_slug, recipe_slug):
     return render(request, 'recipes/editrecipe.html', {'form': form})
 
   
-def delete_recipe_view(request, category_slug, recipe_slug):
-    recipe = Recipe.objects.get(title=recipe_slug)
+def delete_recipe_view(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
     if request.method == 'POST':
         recipe.delete()
         return redirect('/')
     return render(request, 'recipes/deleterecipe.html', {'recipe': recipe})
 
   
-def comment_view(request, category_slug, recipe_slug):
+def comment_view(request, category_name_slug, recipe_slug):
     recipe = Recipe.objects.get(title=recipe_slug)
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -102,7 +104,7 @@ def register(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        #profile_form = UserProfileForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -122,7 +124,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'recipes/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+    return render(request, 'recipes/login.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
   
 def user_login(request):
