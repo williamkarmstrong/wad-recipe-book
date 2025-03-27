@@ -5,7 +5,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Avg
 
 # Create your models here.
+    
 class CustomUser(AbstractUser):
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
     groups = models.ManyToManyField(
         Group,
         related_name="customuser_set",  
