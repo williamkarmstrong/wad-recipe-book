@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from recipes.models import Category, Rating, Recipe
 from datetime import datetime
+from django.http import JsonResponse
+from recipes.models import Recipe, SavedRecipe
 
 # Create your views here.
 
@@ -107,8 +109,37 @@ def rate_recipe_view(request, recipe_id):
 
     return render(request, "recipes/raterecipe.html", {"form": form, "recipe": recipe})
 
-def save_recipe_view(request, recipe_id, user_id):
-    pass
+@login_required
+def my_recipes_view(request):
+    # 查询当前用户保存的所有食谱
+    saved_recipes = SavedRecipe.objects.filter(user=request.user).select_related('recipe')
+    # 提取保存的食谱对象列表
+    recipes = [saved.recipe for saved in saved_recipes]
+    context = {'recipes': recipes}
+    return render(request, 'recipes/myrecipes.html', context)
+
+@login_required
+def save_recipe_view(request, recipe_id):
+    if request.method == "POST":
+        try:
+            # 根据 recipe_id 获取对应食谱
+            recipe = Recipe.objects.get(id=recipe_id)
+            # 检查当前用户是否已经收藏该食谱
+            saved_recipe = SavedRecipe.objects.filter(user=request.user, recipe=recipe).first()
+            if saved_recipe:
+                # 如果已经收藏，则取消收藏
+                saved_recipe.delete()
+                return JsonResponse({"unsaved": True})
+            else:
+                # 如果未收藏，则进行收藏操作
+                SavedRecipe.objects.create(user=request.user, recipe=recipe)
+                return JsonResponse({"saved": True})
+        except Recipe.DoesNotExist:
+            return JsonResponse({"error": "Recipe not found."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Invalid request method."}, status=400)
 
 def register(request):
     registered = False

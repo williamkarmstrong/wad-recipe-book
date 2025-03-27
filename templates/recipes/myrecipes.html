@@ -1,0 +1,23 @@
+{% extends 'recipes/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    My Recipes
+{% endblock %}
+
+{% block body_block %}
+    <h1>My Saved Recipes</h1>
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <a href="{% url 'recipes:recipe_detail' recipe.id %}">
+                        {{ recipe.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't saved any recipes yet.</p>
+    {% endif %}
+{% endblock %}
