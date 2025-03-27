@@ -1,0 +1,19 @@
+{% extends 'recipes/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+{% endblock %}
+
+{% block body_block %}
+    <h1>Add recipe</h1>
+    <img src="{% static 'images/image.png' %}"
+        alt="edit recipe Icon" width="75" height="75"/><br><br>
+        
+    <div>
+        <form id="recipe_form" method="post" action="{% url 'recipes:add_recipe' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'recipes/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Snack Overflow
+{% endblock %}
+
+{% block body_block %}
+<h2>Edit Recipe: {{ recipe.title }}</h2>
+
+<div>
+    <form id="edit_form" method="post" action="{% url 'recipes:edit_recipe' recipe.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Confirm">
+    </form>
+</div>
+{% endblock %}
