@@ -16,27 +16,22 @@
         <p> {{ recipe.description }} </p>
         <h3>Instructions</h3>
         <p> {{ recipe.instructions }} </p>
-        <h3> Rating: {{ recipe.average_rating }}/5</h3>
+        <h3> Rating: {{ recipe.average_rating }} / 5.0</h3>
 
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'recipes:edit' recipe.id %}">
+            <form method="post" action="{% url 'recipes:rate' recipe.id %}">
                 {% csrf_token %}
-                <label for="rating">Rate this recipe:</label>
-                <select name="rating" id="rating">
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                </select>
-                <button type="submit">Submit Rating</button>
+                {{ form.as_p }}
+                <button type="submit">Rate</button>
             </form>
 
-            <!-- Save Recipe Form -->
             <form method="post" action="{% url 'recipes:save' recipe.id %}">
                 {% csrf_token %}
                 <button type="submit">Save to My Recipes</button>
             </form>
+
+            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Edit Recipe</a>
+            
         {% else %}
             <p><a href="{% url 'recipes:login' %}">Log in</a> to rate and save recipes.</p>
         {% endif %}

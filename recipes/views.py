@@ -1,11 +1,11 @@
-from recipes.forms import CommentForm, RecipeForm, UserForm, UserProfileForm
+from recipes.forms import CommentForm, RatingForm, RecipeForm, UserForm, UserProfileForm
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from recipes.models import Category, Recipe
+from recipes.models import Category, Rating, Recipe
 from datetime import datetime
 
 # Create your views here.
@@ -49,6 +49,7 @@ def add_recipe_view(request):
         form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
+            recipe.author = request.user
             recipe.save()
             return redirect('/')
     else:
@@ -59,13 +60,13 @@ def add_recipe_view(request):
 def edit_recipe_view(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        form = RecipeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return render(request, "recipes/recipe.html", {"recipe": recipe})
     else:
         form = RecipeForm(instance=recipe)
-    return render(request, 'recipes/editrecipe.html', {'form': form})
+    return render(request, 'recipes/editrecipe.html', {'form': form, 'recipe':recipe})
 
   
 def delete_recipe_view(request, recipe_id):
@@ -76,8 +77,8 @@ def delete_recipe_view(request, recipe_id):
     return render(request, 'recipes/deleterecipe.html', {'recipe': recipe})
 
   
-def comment_view(request, category_name_slug, recipe_slug):
-    recipe = Recipe.objects.get(title=recipe_slug)
+def comment_view(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -87,17 +88,27 @@ def comment_view(request, category_name_slug, recipe_slug):
     return redirect(request.META.get('HTTP_REFERER', '/'))
   
   
-def rate_recipe_view(request, recipe_slug):
-    recipe = Recipe.objects.get(title=recipe_slug)
-    if request.method == 'POST':
-        rating = request.POST.get('rating')
-        if rating:
-            recipe.ratings.add(rating)
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+@login_required
+def rate_recipe_view(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    rating_instance = Rating.objects.filter(user=request.user, recipe=recipe).first()
 
-def save_recipe_view(request, recipe_slug):
+    if request.method == "POST":
+        form = RatingForm(request.POST, instance=rating_instance)  # Use existing rating if it exists
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.recipe = recipe
+            rating.save()
+            return render(request, 'recipes/recipe.html', {'recipe': recipe})
+
+    else:
+        form = RatingForm(instance=rating_instance)
+
+    return render(request, "recipes/raterecipe.html", {"form": form, "recipe": recipe})
+
+def save_recipe_view(request, recipe_id, user_id):
     pass
-
 
 def register(request):
     registered = False
