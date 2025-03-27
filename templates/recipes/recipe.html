@@ -1,36 +1,42 @@
-<!DOCTYPE html>
-
+{% extends 'recipes/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>Snack Overflow</title>
-</head>
 
-<body>
-<h5>Home</h5>
-<h1>Recipe Name</h1>
-<!-- TODO load image of recipe -->
-<img src="{% static '' %}"
-     alt="recipe image" width="75" height="75"/><br>
-<h5>Recipe Description</h5>
-<h5>Ingredients</h5>
-<div>
-    <ul>
-        <li>ingredient</li>
-        <li>ingredient</li>
-        <li>ingredient</li>
-        <li>ingredient</li>
-        <li>ingredient</li>
-    </ul>
-</div>
+{% block title_block %}
+    Recipe
+{% endblock %}
 
-<div>
-    <h3>save</h3>
-    <h3>edit</h3>
-    <h3>rate</h3>
-    <h3>delete</h3>
-    <h3>comment</h3>
-</div>
 
-</body>
-</html>
+{% block body_block %}
+    {% if recipe %}
+        <h1>{{ recipe.title }}</h1>
+        <h3>By {{ recipe.author }}</h3>
+        <h3>Difficulty: {{ recipe.difficulty }}</h3>
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+        <h3>Description</h3>
+        <p> {{ recipe.description }} </p>
+        <h3>Instructions</h3>
+        <p> {{ recipe.instructions }} </p>
+        <h3> Rating: {{ recipe.average_rating }} / 5.0</h3>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'recipes:rate' recipe.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Rate</button>
+            </form>
+
+            <form method="post" action="{% url 'recipes:save' recipe.id %}">
+                {% csrf_token %}
+                <button type="submit">Save to My Recipes</button>
+            </form>
+
+            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Edit Recipe</a>
+            
+        {% else %}
+            <p><a href="{% url 'recipes:login' %}">Log in</a> to rate and save recipes.</p>
+        {% endif %}
+
+    {% else %}
+        The specified recipe does not exist.
+    {% endif %}
+{% endblock %}

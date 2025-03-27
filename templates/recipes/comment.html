@@ -15,7 +15,7 @@
      alt="recipe Icon" width="75" height="75"/><br><br>
 
 <div>
-    <form>
+    <form id="comment_form" method="post" action="{% url 'recipes:comment' %}">
         <label for="comment">Leave a comment:</label>
         <input type="text" id="comment" name="comment"><br><br>
         <input type="submit" value="Confirm">

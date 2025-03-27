@@ -1,45 +1,27 @@
-<!DOCTYPE html>
-
+{% extends 'recipes/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>Snack Overflow</title>
-</head>
 
-<body>
-<h5>Home</h5>
-<!-- TODO should change depending on name of category -->
-<h1>Category Name</h1>
+{% block title_block %}
+    Categories
+{% endblock %}
 
-<div>
-    <ul>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-        <li><img src="{% static '' %}"
-                 alt="recipe Icon" width="75" height="75"/><br>
-            <h3>recipe name</h3></li>
-    </ul>
-</div>
+{% block body_block %}
+    {% if category %}
+        <h1>{{ category.name }}</h1>
+        {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+            <li><a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>No pages currently in category.</strong>
+        {% endif %}
 
-<h3>Other Categories</h3>
-<ul>
-    <li>Category Name</li>
-    <li>Category Name</li>
-    <li>Category Name</li>
-    <li>Category Name</li>
-    <li>Category Name</li>
-</ul>
-
-
-</body>
-</html>
+        {% if user.is_authenticated %}
+            <a href="{% url 'recipes:add_recipe' %}">Add Page</a> <br />
+        {% endif %}
+    {% else %}
+        The specified category does not exist.
+    {% endif %}
+{% endblock %}

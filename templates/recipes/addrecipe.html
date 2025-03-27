@@ -1,31 +1,19 @@
-<!DOCTYPE html>
-
+{% extends 'recipes/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-    <title>Snack Overflow</title>
-</head>
 
-<body>
-<h5>Home</h5>
-<!-- TODO should change depending on name of recipe -->
-<h1>Add recipe</h1>
-<h3>Add image</h3>
-<!-- TODO allow functionality for changing image -->
-<img src="{% static 'images/image.png' %}"
-     alt="edit recipe Icon" width="75" height="75"/><br><br>
-<div>
-    <form action="/action_page.php">
-        <label for="desc">Add Description:</label>
-        <input type="text" id="desc" name="fname"><br><br>
-        <label for="title">Add Title:</label>
-        <input type="text" id="title" name="lname"><br><br>
-        <label for="ingredient">Add Ingredients:</label>
-        <input type="text" id="ingredient" name="lname"><br><br>
-        <input type="submit" value="Confirm">
-    </form>
-</div>
+{% block title_block %}
+{% endblock %}
 
-
-</body>
-</html>
+{% block body_block %}
+    <h1>Add recipe</h1>
+    <img src="{% static 'images/image.png' %}"
+        alt="edit recipe Icon" width="75" height="75"/><br><br>
+        
+    <div>
+        <form id="recipe_form" method="post" action="{% url 'recipes:add_recipe' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
