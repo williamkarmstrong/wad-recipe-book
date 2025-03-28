@@ -9,21 +9,25 @@
     {% if category %}
         <h1 class="category-heading">{{ category.name }}</h1>
         {% if recipes %}
-        <div class=".recipe-list-container">
-            <ul>
-                {% for recipe in recipes %}
-                <li><a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% else %}
-        <strong>No pages currently in category.</strong>
-        {% endif %}
+            <div class="recipe-list-container">
+                <ul class="recipe-list">
+                    {% for recipe in recipes %}
+                    <li class="recipe-item"><a class="recipe-link" href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="categories-container">
+                <div>
+                    {% else %}
+                <strong class="no-recipes-message">No pages currently in category.</strong>
+            {% endif %}
 
-        {% if user.is_authenticated %}
-            <a href="{% url 'recipes:add_recipe' %}">Add Page</a> <br />
-        {% endif %}
-    {% else %}
-        The specified category does not exist.
+            {% if user.is_authenticated %}
+                <a class="add-recipe-link" href="{% url 'recipes:add_recipe' %}">Add Page</a> <br />
+            {% endif %}
+        {% else %}
+                <p class="category-error-message">The specified category does not exist.</p>
+                </div>
+            </div>
     {% endif %}
 {% endblock %}

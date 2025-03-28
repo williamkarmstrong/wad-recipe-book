@@ -4,104 +4,81 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins';
-}
-
-body {
+    }
+    
+    body {
     background-color: #f8f9fa; /* Light grey background */
-}
-
-/* Style the navigation bar */
-.navbar {
+    }
+    
+    /* Style the navigation bar */
+    .navbar {
     background-color: #f8f9fa; /* Light grey background */
     padding: 10px 20px;
     border-bottom: 1px solid #e0e0e0; /* Subtle bottom border */
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-/* Style the brand/title */
-.navbar-title {
+    }
+    
+    /* Style the brand/title */
+    .navbar-title {
     font-size: 24px;
     font-weight: bold;
     color: #333;
     list-style-type: none;
     margin-right: auto;
-}
-
-/* Style the navigation links */
-.navbar ul {
+    }
+    
+    /* Style the navigation links */
+    .navbar ul {
     list-style-type: none;
     display: flex;
     align-items: center;
-}
-
-.navbar ul li {
+    }
+    
+    .navbar ul li {
     margin-left: 20px;
-}
-
-.navbar ul li a {
+    }
+    
+    .navbar ul li a {
     text-decoration: none;
     color: #333;
     font-size: 16px;
     padding: 8px 12px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-}
-
-/* Hover effect for links */
-.navbar ul li a:hover {
+    }
+    
+    /* Hover effect for links */
+    .navbar ul li a:hover {
     background-color: #e9ecef; /* Light hover effect */
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
     }
-
-    .navbar ul {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .navbar ul li {
-        margin: 5px 0;
-    }
-
-    .navbar ul li a {
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
-}
-
-/* Style the categories container */
-.categories-container {
+    
+    /* Style the categories container */
+    .categories-container {
     background-color: #ffffff; /* White background */
     padding: 20px;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     margin: 20px 0;
-}
-
-/* Style the category list */
-.categories-list {
+    }
+    
+    /* Style the category list */
+    .categories-list {
     list-style-type: none; /* Remove default list styling */
     padding: 0;
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap on smaller screens */
     gap: 10px; /* Space between items */
-}
-
-/* Style each category item */
-.categories-list li {
+    }
+    
+    /* Style each category item */
+    .categories-list li {
     margin: 0;
-}
-
-/* Style the category links */
-.categories-list a {
+    }
+    
+    /* Style the category links */
+    .categories-list a {
     text-decoration: none;
     color: #333;
     font-size: 16px;
@@ -110,87 +87,76 @@ body {
     background-color: #f8f9fa; /* Light grey background */
     transition: background-color 0.3s ease, color 0.3s ease;
     display: inline-block;
-}
-
-/* Highlight the current category */
-.categories-list li.current-category a {
+    }
+    
+    /* Highlight the current category */
+    .categories-list li.current-category a {
     font-weight: bold;
     background-color: #e9ecef; /* Slightly darker grey */
-}
-
-/* Hover effect for category links */
-.categories-list a:hover {
+    }
+    
+    /* Hover effect for category links */
+    .categories-list a:hover {
     background-color: #e9ecef; /* Slightly darker grey */
     color: #000;
-}
-
-/* Style the footer */
-footer {
+    }
+    
+    /* Style the footer */
+    footer {
     background-color: #f8f9fa; /* Light grey background */
     color: #333; /* Dark grey text color */
     padding: 20px 0;
     text-align: center;
     border-top: 1px solid #e0e0e0; /* Subtle top border */
     font-size: 14px;
-}
-
-/* Footer content block */
-footer .footer-content {
+    margin-top: 100px;
+    }
+    
+    /* Footer content block */
+    footer .footer-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-/* Responsive design for smaller screens */
-@media (max-width: 768px) {
-    footer {
-        padding: 15px 0;
     }
-
-    footer .footer-content {
-        padding: 0 10px;
-    }
-}
-
-/* Centering the form container */
-.form-container {
+    
+    /* Centering the form container */
+    .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* Full height of the viewport */
     margin: 30px;
-}
-
-/* Styling the form */
-#recipe_form {
+    }
+    
+    /* Styling the form */
+    #recipe_form {
     background-color: #ffffff; /* White background */
     padding: 40px;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     width: 100%;
     max-width: 500px; /* Maximum width of the form */
-}
-
-/* Styling the form heading */
-.form-title {
+    }
+    
+    /* Styling the form heading */
+    .form-title {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
-}
-
-/* Styling form labels */
-#recipe_form label {
+    }
+    
+    /* Styling form labels */
+    #recipe_form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
     color: #555;
-}
-
-/* Styling form inputs and textareas */
-#recipe_form input[type="text"],
-#recipe_form input[type="email"],
-#recipe_form input[type="number"],
-#recipe_form textarea {
+    }
+    
+    /* Styling form inputs and textareas */
+    #recipe_form input[type="text"],
+    #recipe_form input[type="number"],
+    #recipe_form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -199,10 +165,10 @@ footer .footer-content {
     font-size: 16px;
     background-color: #f8f9fa;
     color: #333;
-}
-
-/* Styling the submit button */
-#recipe_form button[type="submit"] {
+    }
+    
+    /* Styling the submit button */
+    #recipe_form button[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #007bff; /* Bootstrap primary blue */
@@ -212,95 +178,262 @@ footer .footer-content {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-#recipe_form button[type="submit"]:hover {
+    }
+    
+    #recipe_form button[type="submit"]:hover {
     background-color: #0056b3; /* Darker blue on hover */
-}
-
-/* Style the category heading */
-.category-heading {
+    }
+    
+    /* Style the category heading */
+    .category-heading {
     text-align: center;
     font-size: 2em;
     margin: 20px 0;
     color: #333;
-}
-
-/* Container for the recipe list */
-.recipe-list-container {
+    }
+    
+    .categories-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    }
+    
+    /* Container for the recipe list */
+    .recipe-list-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     margin: 20px 0;
-}
-
-/* Style the recipe list */
-.recipe-list {
+    }
+    
+    /* Style the recipe list */
+    .recipe-list {
     list-style: none;
     padding: 0;
     max-width: 600px;
     width: 100%;
-}
-
-/* Style each recipe item */
-.recipe-item {
+    }
+    
+    /* Style each recipe item */
+    .recipe-item {
     background-color: #f8f9fa;
     margin-bottom: 10px;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
-}
-
-/* Hover effect for recipe items */
-.recipe-item:hover {
+    }
+    
+    /* Hover effect for recipe items */
+    .recipe-item:hover {
     transform: translateY(-3px);
-}
-
-/* Style the recipe links */
-.recipe-link {
+    }
+    
+    /* Style the recipe links */
+    .recipe-link {
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
     font-size: 1.2em;
     display: block;
-}
-
-/* Hover effect for recipe links */
-.recipe-link:hover {
+    }
+    
+    /* Hover effect for recipe links */
+    .recipe-link:hover {
     color: #0056b3;
-}
-
-/* Style the 'No pages' message */
-.no-recipes-message {
+    }
+    
+    /* Style the 'No pages' message */
+    .no-recipes-message {
     text-align: center;
     font-style: italic;
     color: #666;
     margin: 20px 0;
-}
-
-/* Style the 'Add Page' link */
-.add-recipe-link {
-    display: block;
+    }
+    
+    /* Style the 'Add Page' link */
+    .add-recipe-link {
     text-align: center;
     margin: 20px 0;
     padding: 10px 15px;
-    background-color: #28a745;
+    background-color: #007bff;
     color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.2s;
-}
-
-/* Hover effect for 'Add Page' link */
-.add-recipe-link:hover {
-    background-color: #218838;
-}
-
-/* Style the 'Category does not exist' message */
-.category-error-message {
+    }
+    
+    /* Hover effect for 'Add Page' link */
+    .add-recipe-link:hover {
+    background-color: #0056b3;
+    }
+    
+    /* Style the 'Category does not exist' message */
+    .category-error-message {
     text-align: center;
     color: #dc3545;
     font-weight: bold;
     margin: 20px 0;
-}
+    }
+    
+    .recipe-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Recipe title */
+    h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+    }
+    
+    /* Author and difficulty information */
+    h3 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 5px;
+    }
+    
+    /* Recipe image */
+    .recipe-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    }
+    
+    /* Section headings */
+    h3 + h3 {
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #333;
+    }
+    
+    /* Paragraph text for description and instructions */
+    p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    }
+    
+    /* Rating display */
+    .rating {
+    font-size: 1.2em;
+    color: #f16059;
+    margin-bottom: 20px;
+    }
+    
+    /* Authenticated user actions */
+    .user-actions {
+    margin-top: 20px;
+    }
+    
+    /* Like count */
+    .like-count {
+    font-size: 1.2em;
+    color: #333;
+    margin-right: 20px;
+    }
+    
+    /* Save recipe button */
+    .save-recipe {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+    }
+    
+    .save-recipe:hover {
+    background-color: #0056b3;
+    }
+    
+    /* Rate recipe form */
+    .rate-recipe-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    }
+    
+    .rate-recipe-form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    }
+    
+    .rate-recipe-form button:hover {
+    background-color: #218838;
+    }
+    
+    /* Edit recipe link */
+    .edit-recipe {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    }
+    
+    .edit-recipe:hover {
+    color: #0056b3;
+    }
+    
+    /* Ensure the form elements are styled appropriately */
+    .rate-recipe-form input,
+    .rate-recipe-form select,
+    .rate-recipe-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #f8f9fa;
+    color: #333;
+    }
+    
+    @media (max-width: 768px) {
+    .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    }
+    
+    .navbar ul {
+    flex-direction: column;
+    width: 100%;
+    }
+    
+    .navbar ul li {
+    margin: 5px 0;
+    }
+    
+    .navbar ul li a {
+    display: block;
+    width: 100%;
+    text-align: left;
+    }
+    footer {
+    padding: 15px 0;
+    }
+    
+    footer .footer-content {
+    padding: 0 10px;
+    }
+    }

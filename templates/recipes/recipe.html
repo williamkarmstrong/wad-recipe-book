@@ -8,12 +8,14 @@
 
 {% block body_block %}
     {% if recipe %}
-        <h1>{{ recipe.title }}</h1>
-        <h3>By {{ recipe.author }}</h3>
-        <h3>Difficulty: {{ recipe.difficulty }}</h3>
-        <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
-        <h3>Description</h3>
-        <p> {{ recipe.description }} </p>
+        <h1 id="recipe-title">{{ recipe.title }}</h1>
+        <h3 id="author">By {{ recipe.author }}</h3>
+        <h3 id="difficulty">Difficulty: {{ recipe.difficulty }}</h3>
+        <img class="recipe-image" src="{{ recipe.image }}" alt="{{ recipe.title }}">
+        <div class="description">
+            <h3>Description</h3>
+            <p> {{ recipe.description }} </p>
+        </div>
         <h3>Instructions</h3>
         <p> {{ recipe.instructions }} </p>
         <h3> Rating: {{ recipe.average_rating }} / 5.0</h3>
