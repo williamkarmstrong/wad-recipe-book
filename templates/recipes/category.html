@@ -7,13 +7,15 @@
 
 {% block body_block %}
     {% if category %}
-        <h1>{{ category.name }}</h1>
+        <h1 class="category-heading">{{ category.name }}</h1>
         {% if recipes %}
-        <ul>
-            {% for recipe in recipes %}
-            <li><a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
-            {% endfor %}
-        </ul>
+        <div class=".recipe-list-container">
+            <ul>
+                {% for recipe in recipes %}
+                <li><a href="{% url 'recipes:recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
         {% else %}
         <strong>No pages currently in category.</strong>
         {% endif %}

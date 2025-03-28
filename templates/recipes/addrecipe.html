@@ -5,12 +5,9 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Add recipe</h1>
-    <img src="{% static 'images/image.png' %}"
-        alt="edit recipe Icon" width="75" height="75"/><br><br>
-        
-    <div>
-        <form id="recipe_form" method="post" action="{% url 'recipes:add_recipe' %}">
+    <div class="form-container">
+        <form id="recipe_form" method="post" action="{% url 'recipes:add_recipe' %}" id="recipe_form">
+            <h1 class="form-title">Add recipe</h1>
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Submit</button>

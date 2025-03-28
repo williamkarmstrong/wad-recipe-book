@@ -4,25 +4,21 @@
 <html>
     <head lang="en">
         <meta charset="UTF-8" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
         <title>
             {% block title_block %}
             {% endblock %}
         </title>
-        
-        <style>
-             body {
-                background-color: lightgrey;
-                font-family: 'Poppins', sans-serif;
-            }
-            title, h1, h2, h3, h4, h5, h6 {
-                color: blue;
-            }
-        </style>
     </head>
 
     <header>
-        <nav>
+        <nav class="navbar">
             <ul>
+                <li><img src="{% static 'images/recipeicon.png' %}" alt="My recipes Icon" width="75" height="75"/></li>
+                <li class="navbar-title">Snack Overflow</li>
                 <li><a href="{% url 'recipes:index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                 <!-- Show these links when the user is logged in -->
@@ -46,7 +42,7 @@
 
     <footer>
         {% block footer_block %}
-            Web App Development Group Project Team 7 
+            <p class="footer-content">Web App Development Group Project Team 7 </p>
         {% endblock %}
     </footer>
 </html>

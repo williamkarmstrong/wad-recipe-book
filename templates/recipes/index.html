@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        <ul>
+    <div class="categories-container">
+        <ul class="categories-list">
             {% if categories %}
                 {% for c in categories %}
                     {% if c == current_category %}
@@ -24,22 +24,6 @@
                 {% endfor %}
             {% endif %}
         </ul>
-    </div>
-
-    <div>
-        <h5>Log in/Sign up</h5>
-        <img src="{% static 'images/profileicon.png' %}" alt="Profile Icon" width="75" height="75"/>
-    </div>
-    
-    <div>
-        <h5>add Recipes</h5>
-        <img src="{% static 'images/addrecipeicon.png' %}" alt="Add Recipe Icon" width="75" height="75"/>
-    </div>
-    
-    <div>
-        <h5>My Recipes</h5>
-        <a href="{% url 'recipes:myrecipes' %}">My Recipes</a>
-        <img src="{% static 'images/recipeicon.png' %}" alt="My recipes Icon" width="75" height="75"/>
     </div>
     
     

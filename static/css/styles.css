@@ -1,0 +1,306 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+body {
+    background-color: #f8f9fa; /* Light grey background */
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0; /* Subtle bottom border */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style the brand/title */
+.navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    list-style-type: none;
+    margin-right: auto;
+}
+
+/* Style the navigation links */
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li {
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for links */
+.navbar ul li a:hover {
+    background-color: #e9ecef; /* Light hover effect */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar ul li {
+        margin: 5px 0;
+    }
+
+    .navbar ul li a {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Style the categories container */
+.categories-container {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 20px 0;
+}
+
+/* Style the category list */
+.categories-list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    gap: 10px; /* Space between items */
+}
+
+/* Style each category item */
+.categories-list li {
+    margin: 0;
+}
+
+/* Style the category links */
+.categories-list a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #f8f9fa; /* Light grey background */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+/* Highlight the current category */
+.categories-list li.current-category a {
+    font-weight: bold;
+    background-color: #e9ecef; /* Slightly darker grey */
+}
+
+/* Hover effect for category links */
+.categories-list a:hover {
+    background-color: #e9ecef; /* Slightly darker grey */
+    color: #000;
+}
+
+/* Style the footer */
+footer {
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333; /* Dark grey text color */
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0; /* Subtle top border */
+    font-size: 14px;
+}
+
+/* Footer content block */
+footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    footer {
+        padding: 15px 0;
+    }
+
+    footer .footer-content {
+        padding: 0 10px;
+    }
+}
+
+/* Centering the form container */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full height of the viewport */
+    margin: 30px;
+}
+
+/* Styling the form */
+#recipe_form {
+    background-color: #ffffff; /* White background */
+    padding: 40px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 500px; /* Maximum width of the form */
+}
+
+/* Styling the form heading */
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling form labels */
+#recipe_form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Styling form inputs and textareas */
+#recipe_form input[type="text"],
+#recipe_form input[type="email"],
+#recipe_form input[type="number"],
+#recipe_form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Styling the submit button */
+#recipe_form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#recipe_form button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Style the category heading */
+.category-heading {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Container for the recipe list */
+.recipe-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+/* Style the recipe list */
+.recipe-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Style each recipe item */
+.recipe-item {
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+/* Hover effect for recipe items */
+.recipe-item:hover {
+    transform: translateY(-3px);
+}
+
+/* Style the recipe links */
+.recipe-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+}
+
+/* Hover effect for recipe links */
+.recipe-link:hover {
+    color: #0056b3;
+}
+
+/* Style the 'No pages' message */
+.no-recipes-message {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin: 20px 0;
+}
+
+/* Style the 'Add Page' link */
+.add-recipe-link {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+/* Hover effect for 'Add Page' link */
+.add-recipe-link:hover {
+    background-color: #218838;
+}
+
+/* Style the 'Category does not exist' message */
+.category-error-message {
+    text-align: center;
+    color: #dc3545;
+    font-weight: bold;
+    margin: 20px 0;
+}
