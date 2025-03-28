@@ -5,13 +5,11 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField()
-
-    def __str__(self):
-        return self.name
+    slug = models.SlugField(blank=True, unique=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if not self.slug:
+            self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
     class Meta:

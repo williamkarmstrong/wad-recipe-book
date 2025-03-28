@@ -41,3 +41,5 @@ function getCSRFToken() {
     const tokenElement = document.querySelector("[name=csrfmiddlewaretoken]");
     return tokenElement ? tokenElement.value : "";
 }
+
+

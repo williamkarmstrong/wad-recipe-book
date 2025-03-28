@@ -1,6 +1,6 @@
 from django import forms 
 from django.contrib.auth.models import User
-from recipes.models import Rating, Recipe, UserProfile
+from recipes.models import Rating, Recipe, UserProfile, Category
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -27,6 +27,13 @@ class RecipeForm(forms.ModelForm):
             'difficulty': forms.Select(choices=Recipe.DIFFICULTY_CHOICES),
         }
 
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Please Enter the new Category name:'}),
+        }
 
 class RatingForm(forms.ModelForm):
     class Meta:

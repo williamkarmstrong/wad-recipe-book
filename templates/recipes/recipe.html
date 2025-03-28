@@ -19,7 +19,6 @@
         <h3> Rating: {{ recipe.average_rating }} / 5.0</h3>
 
         {% if user.is_authenticated %}
-            <span class="like-count">{{ recipe.total_likes|default:"0" }}</span>
             
             <button class="save-recipe" data-recipe-id="{{ recipe.id }}">Save to My Recipes</button>
             
@@ -29,7 +28,12 @@
                 <button type="submit">Rate</button>
             </form>
             
-            <a href="{% url 'recipes:edit_recipe' recipe.id %}">Edit Recipe</a>
+            {% if user.is_authenticated and recipe.author == user %}
+                <button type="button" onclick="window.location.href='{% url 'recipes:edit_recipe' recipe.id %}'">
+                Edit Recipe
+                </button>
+{% endif %}
+
         {% endif %}
 
 

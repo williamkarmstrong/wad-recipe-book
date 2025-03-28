@@ -1,6 +1,6 @@
 from django.urls import path
 from recipes import views
-from .views import my_recipes_view
+from .views import my_recipes_view, add_category_view
 
 app_name = 'recipes'
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
     path('myrecipes/', my_recipes_view, name='myrecipes'),
+    path('category/add/', add_category_view, name='add_category'),
 ]

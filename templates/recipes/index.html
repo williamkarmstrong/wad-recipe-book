@@ -6,41 +6,62 @@
 {% endblock %}
 
 {% block body_block %}
-    <div>
-        <ul>
-            {% if categories %}
-                {% for c in categories %}
-                    {% if c == current_category %}
-                    <li>
-                    <strong>
-                        <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
-                    </strong>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="{% url 'recipes:category' c.slug %}">{{ c.name }}</a>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        </ul>
-    </div>
+<div>
+    <ul id="category-list">
+        {% if categories %}
+            {% for category in categories %}
+                <li class="category-item" {% if forloop.counter > 3 %} style="display: none;" {% endif %}>
+                    <a href="{% url 'recipes:category' category.slug %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    {% if categories|length > 3 %}
+        <button id="toggle-categories" type="button">Show more categories.</button>
+    {% endif %}
+</div>
 
-    <div>
-        <h5>Log in/Sign up</h5>
-        <img src="{% static 'images/profileicon.png' %}" alt="Profile Icon" width="75" height="75"/>
-    </div>
-    
-    <div>
-        <h5>add Recipes</h5>
-        <img src="{% static 'images/addrecipeicon.png' %}" alt="Add Recipe Icon" width="75" height="75"/>
-    </div>
-    
-    <div>
-        <h5>My Recipes</h5>
-        <a href="{% url 'recipes:myrecipes' %}">My Recipes</a>
-        <img src="{% static 'images/recipeicon.png' %}" alt="My recipes Icon" width="75" height="75"/>
-    </div>
-    
-    
+<div>
+    <h5>Log in/Sign up</h5>
+    <img src="{% static 'images/profileicon.png' %}" alt="Profile Icon" width="75" height="75"/>
+</div>
+
+<div>
+    <a href="{% url 'recipes:add_recipe' %}">Add recipes</a>
+    <br><br>
+    <img src="{% static 'images/addrecipeicon.png' %}" alt="Add Recipe Icon" width="75" height="75"/>
+</div>
+
+<div>
+    <a href="{% url 'recipes:myrecipes' %}">My Recipes</a>
+    <br><br>
+    <img src="{% static 'images/recipeicon.png' %}" alt="My recipes Icon" width="75" height="75"/>
+</div>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'recipes:add_category' %}">Add category</a>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById("toggle-categories");
+        if (toggleBtn) {
+            toggleBtn.addEventListener("click", function() {
+                if (toggleBtn.innerText.trim() === "Show more categories.") {
+                    const categoryItems = document.querySelectorAll("#category-list .category-item");
+                    categoryItems.forEach(item => {
+                        item.style.display = "list-item";
+                    });
+                    toggleBtn.innerText = "Show less categories.";
+                }
+                else if (toggleBtn.innerText.trim() === "Show less categories.") {
+                    window.location.reload();
+                }
+            });
+        }
+    });
+    </script>
 {% endblock %}

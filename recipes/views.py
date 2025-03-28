@@ -9,22 +9,35 @@ from recipes.models import Category, Rating, Recipe
 from datetime import datetime
 from django.http import JsonResponse
 from recipes.models import Recipe, SavedRecipe
+from .forms import CategoryForm
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'recipes/index.html', context=get_categories())
+    context = get_categories()
+    return render(request, 'recipes/index.html', context=context)
 
 def get_categories():
     context_dict = {}
-
     try:
-        categories = Category.objects.all()
+        categories = Category.objects.all() 
         context_dict['categories'] = categories
     except Category.DoesNotExist:
         context_dict['categories'] = None
-
     return context_dict
+
+
+
+@login_required
+def add_category_view(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:myrecipes')  
+    else:
+        form = CategoryForm()
+    return render(request, 'recipes/add_category.html', {'form': form})
 
 def category_view(request, category_name_slug):
     context_dict = {}
@@ -61,6 +74,9 @@ def add_recipe_view(request):
   
 def edit_recipe_view(request, recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
+    if recipe.author != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this recipe.")
+    
     if request.method == 'POST':
         form = RecipeForm(request.POST, instance=recipe)
         if form.is_valid():
@@ -68,7 +84,7 @@ def edit_recipe_view(request, recipe_id):
             return render(request, "recipes/recipe.html", {"recipe": recipe})
     else:
         form = RecipeForm(instance=recipe)
-    return render(request, 'recipes/editrecipe.html', {'form': form, 'recipe':recipe})
+    return render(request, 'recipes/editrecipe.html', {'form': form, 'recipe': recipe})
 
   
 def delete_recipe_view(request, recipe_id):
@@ -111,9 +127,7 @@ def rate_recipe_view(request, recipe_id):
 
 @login_required
 def my_recipes_view(request):
-    # 查询当前用户保存的所有食谱
     saved_recipes = SavedRecipe.objects.filter(user=request.user).select_related('recipe')
-    # 提取保存的食谱对象列表
     recipes = [saved.recipe for saved in saved_recipes]
     context = {'recipes': recipes}
     return render(request, 'recipes/myrecipes.html', context)
@@ -122,16 +136,12 @@ def my_recipes_view(request):
 def save_recipe_view(request, recipe_id):
     if request.method == "POST":
         try:
-            # 根据 recipe_id 获取对应食谱
             recipe = Recipe.objects.get(id=recipe_id)
-            # 检查当前用户是否已经收藏该食谱
             saved_recipe = SavedRecipe.objects.filter(user=request.user, recipe=recipe).first()
             if saved_recipe:
-                # 如果已经收藏，则取消收藏
                 saved_recipe.delete()
                 return JsonResponse({"unsaved": True})
             else:
-                # 如果未收藏，则进行收藏操作
                 SavedRecipe.objects.create(user=request.user, recipe=recipe)
                 return JsonResponse({"saved": True})
         except Recipe.DoesNotExist:

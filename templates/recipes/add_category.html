@@ -1,0 +1,15 @@
+{% extends 'recipes/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Add new category
+{% endblock %}
+
+{% block body_block %}
+    <h1>Add new category</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add category</button>
+    </form>
+{% endblock %}
